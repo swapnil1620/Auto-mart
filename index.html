@@ -1,1 +1,1240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AutoMart – Pune's Trusted Used Car Dealer</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --red: #e8192c;
+  --dark-red: #b01020;
+  --gold: #f5a623;
+  --black: #0a0a0a;
+  --dark: #111214;
+  --card: #18191d;
+  --border: rgba(232,25,44,0.25);
+  --text: #f0f0f0;
+  --muted: #888;
+  --glow: 0 0 40px rgba(232,25,44,0.5), 0 0 80px rgba(232,25,44,0.2);
+  --glow-gold: 0 0 30px rgba(245,166,35,0.4);
+}
 
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--text);
+  font-family: 'Rajdhani', sans-serif;
+  overflow-x: hidden;
+  cursor: default;
+}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--black); }
+::-webkit-scrollbar-thumb { background: var(--red); border-radius: 2px; }
+
+/* ─── NOISE OVERLAY ─── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.4;
+}
+
+/* ─── NAVBAR ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 48px;
+  background: rgba(10,10,10,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 2rem;
+  letter-spacing: 3px;
+  color: var(--red);
+  text-shadow: var(--glow);
+}
+
+.nav-logo span { color: var(--text); }
+
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  transition: color 0.3s;
+}
+.nav-links a:hover { color: var(--red); }
+
+.nav-cta {
+  background: var(--red);
+  color: #fff;
+  border: none;
+  padding: 10px 24px;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  transition: background 0.3s, box-shadow 0.3s;
+  text-decoration: none;
+  display: inline-block;
+}
+.nav-cta:hover { background: var(--dark-red); box-shadow: var(--glow); }
+
+/* ─── HERO ─── */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding-top: 80px;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse 80% 60% at 60% 40%, rgba(232,25,44,0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 50% at 10% 80%, rgba(245,166,35,0.06) 0%, transparent 60%),
+    var(--black);
+}
+
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(232,25,44,0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(232,25,44,0.07) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  max-width: 1200px;
+  width: 100%;
+  padding: 0 48px;
+  align-items: center;
+}
+
+.hero-text {}
+.hero-eyebrow {
+  font-size: 0.8rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--red);
+  font-weight: 600;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.hero-eyebrow::before {
+  content: '';
+  width: 40px; height: 1px;
+  background: var(--red);
+  box-shadow: var(--glow);
+}
+
+.hero-title {
+  font-family: 'Bebas Neue', cursive;
+  font-size: clamp(4rem, 8vw, 7rem);
+  line-height: 0.92;
+  letter-spacing: 2px;
+  margin-bottom: 24px;
+}
+
+.hero-title .highlight {
+  color: var(--red);
+  text-shadow: var(--glow);
+}
+
+.hero-sub {
+  font-size: 1.1rem;
+  color: var(--muted);
+  line-height: 1.7;
+  font-weight: 400;
+  margin-bottom: 40px;
+  max-width: 440px;
+}
+
+.hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+
+.btn-primary {
+  background: var(--red);
+  color: #fff;
+  padding: 14px 36px;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
+  transition: all 0.3s;
+  text-decoration: none;
+  display: inline-block;
+}
+.btn-primary:hover { background: var(--dark-red); box-shadow: var(--glow); transform: translateY(-2px); }
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text);
+  padding: 13px 36px;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border: 1px solid rgba(255,255,255,0.2);
+  cursor: pointer;
+  clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
+  transition: all 0.3s;
+  text-decoration: none;
+  display: inline-block;
+}
+.btn-secondary:hover { border-color: var(--red); color: var(--red); }
+
+/* ─── 3D CUBE ─── */
+.hero-3d {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 800px;
+}
+
+.cube-scene {
+  width: 240px;
+  height: 240px;
+  perspective: 800px;
+  position: relative;
+}
+
+.cube {
+  width: 240px;
+  height: 240px;
+  position: relative;
+  transform-style: preserve-3d;
+  animation: rotateCube 12s infinite linear;
+  transform: rotateX(-20deg) rotateY(0deg);
+}
+
+@keyframes rotateCube {
+  0%   { transform: rotateX(-20deg) rotateY(0deg); }
+  100% { transform: rotateX(-20deg) rotateY(360deg); }
+}
+
+.cube-face {
+  position: absolute;
+  width: 240px;
+  height: 240px;
+  border: 2px solid var(--red);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Bebas Neue', cursive;
+  font-size: 1.6rem;
+  letter-spacing: 3px;
+  text-align: center;
+  overflow: hidden;
+  box-shadow: inset 0 0 30px rgba(232,25,44,0.15), var(--glow);
+}
+
+.cube-face img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0.85;
+}
+
+.cube-face.front  { transform: translateZ(120px); }
+.cube-face.back   { transform: rotateY(180deg) translateZ(120px); }
+.cube-face.right  { transform: rotateY(90deg) translateZ(120px); }
+.cube-face.left   { transform: rotateY(-90deg) translateZ(120px); }
+.cube-face.top    { transform: rotateX(90deg) translateZ(120px); }
+.cube-face.bottom { transform: rotateX(-90deg) translateZ(120px); }
+
+.cube-face.top, .cube-face.bottom {
+  background: rgba(232,25,44,0.1);
+  font-size: 1rem;
+  padding: 20px;
+  color: var(--red);
+}
+
+/* ─── STATS BAR ─── */
+.stats-bar {
+  background: var(--card);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 28px 48px;
+  display: flex;
+  justify-content: center;
+  gap: 0;
+}
+
+.stat-item {
+  flex: 1;
+  max-width: 220px;
+  text-align: center;
+  padding: 0 32px;
+  position: relative;
+}
+.stat-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 0; top: 10%; height: 80%;
+  width: 1px;
+  background: var(--border);
+}
+
+.stat-num {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 2.8rem;
+  color: var(--red);
+  text-shadow: var(--glow);
+  line-height: 1;
+}
+.stat-label {
+  font-size: 0.75rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+/* ─── SECTION BASE ─── */
+section { padding: 100px 48px; }
+
+.section-header {
+  text-align: center;
+  margin-bottom: 70px;
+}
+.section-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--red);
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.section-title {
+  font-family: 'Bebas Neue', cursive;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  letter-spacing: 2px;
+  line-height: 1;
+}
+.section-line {
+  width: 60px; height: 3px;
+  background: var(--red);
+  box-shadow: var(--glow);
+  margin: 16px auto 0;
+}
+
+/* ─── SCROLL REVEAL ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ─── SERVICES ─── */
+#services { background: var(--dark); }
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.service-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 40px 32px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s, box-shadow 0.4s, border-color 0.4s;
+  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+}
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 3px;
+  background: linear-gradient(90deg, var(--red), transparent);
+  transition: width 0.4s;
+}
+.service-card:hover { transform: translateY(-8px); box-shadow: var(--glow); border-color: rgba(232,25,44,0.5); }
+
+.service-icon {
+  font-size: 2.8rem;
+  margin-bottom: 20px;
+  display: block;
+}
+.service-title {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 1.6rem;
+  letter-spacing: 2px;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+.service-desc {
+  font-size: 0.95rem;
+  color: var(--muted);
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+/* ─── GALLERY / SCROLL STRIP ─── */
+#gallery { background: var(--black); padding: 80px 0; overflow: hidden; }
+#gallery .section-header { padding: 0 48px; }
+
+.gallery-strip {
+  display: flex;
+  gap: 20px;
+  animation: scrollStrip 30s linear infinite;
+  width: max-content;
+  padding: 20px 0;
+}
+.gallery-strip:hover { animation-play-state: paused; }
+
+@keyframes scrollStrip {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.gallery-item {
+  width: 320px;
+  height: 220px;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+}
+.gallery-item img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s, filter 0.5s;
+  filter: brightness(0.85) saturate(0.9);
+}
+.gallery-item:hover img { transform: scale(1.08); filter: brightness(1) saturate(1.1); }
+.gallery-item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(232,25,44,0.2) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* ─── REVIEWS ─── */
+#reviews { background: var(--dark); }
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.review-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 32px;
+  position: relative;
+  transition: transform 0.3s, box-shadow 0.3s;
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+}
+.review-card:hover { transform: translateY(-5px); box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+
+.review-quote {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 4rem;
+  color: var(--red);
+  line-height: 0.5;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+.review-text {
+  font-size: 1rem;
+  color: #ccc;
+  line-height: 1.7;
+  margin-bottom: 24px;
+  font-weight: 400;
+}
+.review-footer { display: flex; justify-content: space-between; align-items: center; }
+.review-author { font-weight: 700; font-size: 1rem; }
+.review-role { font-size: 0.8rem; color: var(--muted); }
+.review-stars { color: var(--gold); font-size: 1rem; text-shadow: var(--glow-gold); }
+
+.google-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+  color: var(--muted);
+  letter-spacing: 1px;
+}
+.google-badge .g-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #4285f4;
+}
+
+/* ─── 3D SCROLL SHOWCASE ─── */
+#showcase {
+  background: var(--black);
+  position: relative;
+  overflow: hidden;
+}
+
+.showcase-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.showcase-visual {
+  perspective: 1000px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-3d {
+  width: 380px;
+  height: 260px;
+  position: relative;
+  transform-style: preserve-3d;
+  transform: rotateX(10deg) rotateY(-20deg);
+  transition: transform 0.5s ease;
+  cursor: pointer;
+}
+.card-3d:hover { transform: rotateX(0deg) rotateY(0deg); }
+
+.card-3d-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 2px solid var(--red);
+  box-shadow: var(--glow);
+}
+.card-3d-face img { width: 100%; height: 100%; object-fit: cover; }
+.card-3d-face::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.7));
+}
+.card-3d-label {
+  position: absolute;
+  bottom: 16px; left: 20px;
+  z-index: 2;
+  font-family: 'Bebas Neue', cursive;
+  font-size: 1.4rem;
+  letter-spacing: 2px;
+  color: #fff;
+}
+
+.card-shadow {
+  position: absolute;
+  bottom: -30px; left: 10%;
+  width: 80%; height: 30px;
+  background: radial-gradient(ellipse, rgba(232,25,44,0.4) 0%, transparent 70%);
+  filter: blur(10px);
+  transform: rotateX(90deg) translateZ(-30px);
+  transform-style: preserve-3d;
+}
+
+.showcase-text {}
+.showcase-title {
+  font-family: 'Bebas Neue', cursive;
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  line-height: 1;
+  margin-bottom: 20px;
+}
+.showcase-features {
+  list-style: none;
+  margin-bottom: 32px;
+}
+.showcase-features li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-size: 1rem;
+  color: #ccc;
+}
+.showcase-features li::before {
+  content: '▶';
+  color: var(--red);
+  font-size: 0.6rem;
+}
+
+/* ─── CONTACT / CTA ─── */
+#contact {
+  background: var(--dark);
+  position: relative;
+  overflow: hidden;
+}
+#contact::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 70% at 50% 100%, rgba(232,25,44,0.1) 0%, transparent 70%);
+}
+
+.contact-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.contact-title {
+  font-family: 'Bebas Neue', cursive;
+  font-size: clamp(3rem, 6vw, 5rem);
+  line-height: 1;
+  margin-bottom: 16px;
+}
+.contact-subtitle {
+  color: var(--muted);
+  font-size: 1.1rem;
+  margin-bottom: 48px;
+  font-weight: 400;
+}
+
+.contact-cards {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+}
+
+.contact-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 28px 36px;
+  text-align: center;
+  min-width: 200px;
+  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  transition: box-shadow 0.3s;
+}
+.contact-card:hover { box-shadow: var(--glow); }
+.contact-card-icon { font-size: 2rem; margin-bottom: 10px; }
+.contact-card-label { font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.contact-card-value { font-weight: 700; font-size: 1.1rem; }
+
+.address-box {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 24px 32px;
+  display: inline-block;
+  text-align: left;
+  max-width: 600px;
+  width: 100%;
+  margin-bottom: 40px;
+}
+.address-box p { color: var(--muted); font-size: 1rem; line-height: 1.8; font-weight: 400; }
+.address-box strong { color: var(--text); }
+
+.cta-btns { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+
+/* ─── WHATSAPP FLOAT ─── */
+.wa-float {
+  position: fixed;
+  bottom: 32px; right: 32px;
+  z-index: 800;
+  width: 60px; height: 60px;
+  background: #25d366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  box-shadow: 0 4px 20px rgba(37,211,102,0.5);
+  cursor: pointer;
+  text-decoration: none;
+  animation: waPulse 2s infinite;
+  transition: transform 0.3s;
+}
+.wa-float:hover { transform: scale(1.1); }
+
+@keyframes waPulse {
+  0%, 100% { box-shadow: 0 4px 20px rgba(37,211,102,0.5); }
+  50% { box-shadow: 0 4px 40px rgba(37,211,102,0.8), 0 0 0 10px rgba(37,211,102,0.1); }
+}
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--black);
+  border-top: 1px solid var(--border);
+  padding: 32px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.footer-logo {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 1.5rem;
+  letter-spacing: 3px;
+  color: var(--red);
+}
+.footer-copy { color: var(--muted); font-size: 0.85rem; }
+
+/* ─── GLOW LINE ─── */
+.glow-line {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--red), transparent);
+  box-shadow: var(--glow);
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 768px) {
+  nav { padding: 16px 20px; }
+  .nav-links { display: none; }
+  section { padding: 70px 20px; }
+  .hero-content { grid-template-columns: 1fr; gap: 50px; padding: 0 20px; }
+  .hero-3d { order: -1; }
+  .cube-scene, .cube { width: 180px; height: 180px; }
+  .cube-face { width: 180px; height: 180px; }
+  .cube-face.front  { transform: translateZ(90px); }
+  .cube-face.back   { transform: rotateY(180deg) translateZ(90px); }
+  .cube-face.right  { transform: rotateY(90deg) translateZ(90px); }
+  .cube-face.left   { transform: rotateY(-90deg) translateZ(90px); }
+  .cube-face.top    { transform: rotateX(90deg) translateZ(90px); }
+  .cube-face.bottom { transform: rotateX(-90deg) translateZ(90px); }
+  .stats-bar { flex-wrap: wrap; padding: 20px; gap: 20px; }
+  .stat-item::after { display: none; }
+  .showcase-inner { grid-template-columns: 1fr; }
+  .card-3d { width: 100%; max-width: 340px; }
+  footer { flex-direction: column; text-align: center; padding: 24px 20px; }
+}
+
+/* ─── PARALLAX LAYERS ─── */
+.parallax-layer {
+  position: absolute;
+  pointer-events: none;
+}
+
+.floating-ring {
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  border: 1px solid rgba(232,25,44,0.15);
+  animation: floatRing 8s ease-in-out infinite;
+}
+@keyframes floatRing {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(20px, -20px) scale(1.03); }
+}
+
+/* ─── COUNT UP ─── */
+.count-num { font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+
+<!-- WhatsApp Float -->
+<a class="wa-float" href="https://wa.me/917020523338?text=Namaste!%20Main%20AutoMart%20se%20ek%20used%20car%20dekhna%20chahta%20hoon.%20Kya%20aap%20mujhe%20available%20cars%20bata%20sakte%20hain?" target="_blank" title="Chat on WhatsApp">💬</a>
+
+<!-- Navbar -->
+<nav>
+  <div class="nav-logo">Auto<span>Mart</span></div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="https://wa.me/917020523338" target="_blank">Enquire Now</a>
+</nav>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+
+  <div class="parallax-layer" style="top:-100px;right:-100px;">
+    <div class="floating-ring"></div>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="hero-eyebrow">Pune's #1 Used Car Dealer</div>
+      <h1 class="hero-title">
+        Drive Your<br>
+        <span class="highlight">Dream Car</span><br>
+        Home Today
+      </h1>
+      <p class="hero-sub">
+        Trusted by 1000+ happy customers across Pune. Premium pre-owned cars at unbeatable prices — with 85% finance, insurance & RTO work handled for you.
+      </p>
+      <div class="hero-btns">
+        <a class="btn-primary" href="#gallery">Explore Inventory</a>
+        <a class="btn-secondary" href="https://wa.me/917020523338" target="_blank">WhatsApp Us</a>
+      </div>
+    </div>
+
+    <div class="hero-3d">
+      <div class="cube-scene">
+        <div class="cube" id="cube">
+          <div class="cube-face front">
+            <img src="https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=400&q=80" alt="Cars">
+          </div>
+          <div class="cube-face back">
+            <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=400&q=80" alt="Cars">
+          </div>
+          <div class="cube-face right">
+            <img src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=400&q=80" alt="Cars">
+          </div>
+          <div class="cube-face left">
+            <img src="https://images.unsplash.com/photo-1502877338535-766e1452684a?w=400&q=80" alt="Cars">
+          </div>
+          <div class="cube-face top">AUTO<br>MART</div>
+          <div class="cube-face bottom">PUNE<br>WAGHOLI</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="glow-line"></div>
+
+<!-- ═══════════ STATS ═══════════ -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-num count-num" data-target="1200">0</div>
+    <div class="stat-label">Cars Sold</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num count-num" data-target="10">0</div>
+    <div class="stat-label">Years Experience</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num count-num" data-target="85">0</div>
+    <div class="stat-label">% Finance Available</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num" style="font-size:2rem;">★ 4.8</div>
+    <div class="stat-label">Google Rating</div>
+  </div>
+</div>
+
+<div class="glow-line"></div>
+
+<!-- ═══════════ SERVICES ═══════════ -->
+<section id="services">
+  <div class="section-header reveal">
+    <span class="section-tag">What We Offer</span>
+    <h2 class="section-title">Complete Car Solutions</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal reveal-delay-1">
+      <span class="service-icon">🚗</span>
+      <h3 class="service-title">Buy Used Cars</h3>
+      <p class="service-desc">Huge inventory of verified pre-owned cars — Maruti, Hyundai, Honda, Ford, Renault & more. Accident-free, clean history guaranteed.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <span class="service-icon">💰</span>
+      <h3 class="service-title">Sell Your Car</h3>
+      <p class="service-desc">Get the best price for your car instantly. We evaluate fairly and settle on the same day. No waiting, no hassle.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-3">
+      <span class="service-icon">🔄</span>
+      <h3 class="service-title">Exchange / Upgrade</h3>
+      <p class="service-desc">Trade in your old car and upgrade to your dream vehicle. Seamless exchange process with transparent valuation.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-4">
+      <span class="service-icon">🏦</span>
+      <h3 class="service-title">85% Finance</h3>
+      <p class="service-desc">Easy EMI options with up to 85% financing available. Low interest rates, quick approval, minimal paperwork.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <span class="service-icon">🛡️</span>
+      <h3 class="service-title">Vehicle Insurance</h3>
+      <p class="service-desc">Get the best insurance deals on your newly purchased vehicle. We compare & get you the right coverage at lowest premium.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <span class="service-icon">📋</span>
+      <h3 class="service-title">RTO Work & Ceramic Coating</h3>
+      <p class="service-desc">Complete RTO paperwork handled by our experts. Also offering professional ceramic coating to keep your car showroom-fresh.</p>
+    </div>
+  </div>
+</section>
+
+<div class="glow-line"></div>
+
+<!-- ═══════════ GALLERY ═══════════ -->
+<section id="gallery">
+  <div class="section-header reveal">
+    <span class="section-tag">Our Showroom & Deliveries</span>
+    <h2 class="section-title">See Us in Action</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="gallery-strip" id="galleryStrip">
+    <!-- Row 1 - will be duplicated by JS -->
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1567449303183-ae0d6ed1498c?w=500&q=80" alt="Car delivery">
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1550355291-bbee04a92027?w=500&q=80" alt="Car lot">
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1550258987-190a2d41a8ba?w=500&q=80" alt="Delivery">
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=500&q=80" alt="Cars">
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=500&q=80" alt="Cars">
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?w=500&q=80" alt="Cars">
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=500&q=80" alt="Cars">
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=500&q=80" alt="Cars">
+    </div>
+    <!-- Duplicate for seamless loop -->
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1567449303183-ae0d6ed1498c?w=500&q=80" alt="Car delivery">
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1550355291-bbee04a92027?w=500&q=80" alt="Car lot">
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1550258987-190a2d41a8ba?w=500&q=80" alt="Delivery">
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=500&q=80" alt="Cars">
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=500&q=80" alt="Cars">
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?w=500&q=80" alt="Cars">
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=500&q=80" alt="Cars">
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=500&q=80" alt="Cars">
+    </div>
+  </div>
+</section>
+
+<div class="glow-line"></div>
+
+<!-- ═══════════ 3D CARD SHOWCASE ═══════════ -->
+<section id="showcase">
+  <div class="showcase-inner">
+    <div class="showcase-visual reveal">
+      <div style="position:relative;">
+        <div class="card-3d" id="card3d">
+          <div class="card-3d-face">
+            <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=600&q=80" alt="AutoMart showroom">
+            <div class="card-3d-label">AutoMart — Wagholi, Pune</div>
+          </div>
+        </div>
+        <div class="card-shadow"></div>
+      </div>
+    </div>
+
+    <div class="showcase-text reveal reveal-delay-2">
+      <span class="section-tag">Why Choose Us</span>
+      <h2 class="showcase-title">Pune's Most Trusted Used Car Expert</h2>
+      <ul class="showcase-features">
+        <li>Every car is accident-free with clean ownership history</li>
+        <li>Transparent pricing — no hidden charges, ever</li>
+        <li>Same-day delivery possible after paperwork</li>
+        <li>85% finance with minimum documentation</li>
+        <li>End-to-end RTO transfer handled by our team</li>
+        <li>Post-purchase support & assistance</li>
+        <li>10+ years serving Pune's car buyers</li>
+      </ul>
+      <a class="btn-primary" href="https://wa.me/917020523338" target="_blank">Book a Test Drive</a>
+    </div>
+  </div>
+</section>
+
+<div class="glow-line"></div>
+
+<!-- ═══════════ REVIEWS ═══════════ -->
+<section id="reviews">
+  <div class="section-header reveal">
+    <span class="section-tag">What Customers Say</span>
+    <h2 class="section-title">Real Reviews, Real Smiles</h2>
+    <div class="section-line"></div>
+    <p style="color:var(--muted);margin-top:16px;font-size:0.95rem;">★★★★★ 4.8 rating · 200+ Google Reviews</p>
+  </div>
+
+  <div class="reviews-grid">
+    <div class="review-card reveal reveal-delay-1">
+      <div class="review-quote">"</div>
+      <p class="review-text">Excellent service from start to finish! I purchased a Hyundai i20 and the entire process was smooth and hassle-free. The team was honest and transparent. Highly recommended!</p>
+      <div class="review-footer">
+        <div>
+          <div class="review-author">Rahul Patil</div>
+          <div class="review-role">Bought Hyundai i20</div>
+        </div>
+        <div>
+          <div class="review-stars">★★★★★</div>
+          <div class="google-badge"><span class="g-dot"></span> Google Review</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card reveal reveal-delay-2">
+      <div class="review-quote">"</div>
+      <p class="review-text">Very cooperative staff. Got a great deal on my Ford EcoSport with flower decoration delivery! The finance process was quick and the RTO work was handled completely.</p>
+      <div class="review-footer">
+        <div>
+          <div class="review-author">Priya Sharma</div>
+          <div class="review-role">Bought Ford EcoSport</div>
+        </div>
+        <div>
+          <div class="review-stars">★★★★★</div>
+          <div class="google-badge"><span class="g-dot"></span> Google Review</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card reveal reveal-delay-3">
+      <div class="review-quote">"</div>
+      <p class="review-text">Best used car dealership in Pune! Kiran bhai was very helpful. The Renault Duster I bought was in perfect condition. Will strongly recommend to all my friends and family.</p>
+      <div class="review-footer">
+        <div>
+          <div class="review-author">Amit Kulkarni</div>
+          <div class="review-role">Bought Renault Duster</div>
+        </div>
+        <div>
+          <div class="review-stars">★★★★★</div>
+          <div class="google-badge"><span class="g-dot"></span> Google Review</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card reveal reveal-delay-1">
+      <div class="review-quote">"</div>
+      <p class="review-text">Bought a Royal Enfield bike and couldn't be happier. Quick delivery in the parking itself, no drama. Quality vehicle with all papers clear. AutoMart is truly trustworthy.</p>
+      <div class="review-footer">
+        <div>
+          <div class="review-author">Saurabh Deshmukh</div>
+          <div class="review-role">Bought Royal Enfield</div>
+        </div>
+        <div>
+          <div class="review-stars">★★★★★</div>
+          <div class="google-badge"><span class="g-dot"></span> Google Review</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card reveal reveal-delay-2">
+      <div class="review-quote">"</div>
+      <p class="review-text">Very beautiful showroom with a huge collection. Got my Hyundai i20 at a very fair price. The ceramic coating they did is absolutely stunning. 100% satisfied with AutoMart!</p>
+      <div class="review-footer">
+        <div>
+          <div class="review-author">Sneha Joshi</div>
+          <div class="review-role">Bought Hyundai i20 Sportz</div>
+        </div>
+        <div>
+          <div class="review-stars">★★★★★</div>
+          <div class="google-badge"><span class="g-dot"></span> Google Review</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card reveal reveal-delay-3">
+      <div class="review-quote">"</div>
+      <p class="review-text">Amazing experience! Negotiation was easy, they were never pushy. From test drive to delivery, everything was perfect. The vehicle insurance was also sorted in one day.</p>
+      <div class="review-footer">
+        <div>
+          <div class="review-author">Vikram Thorat</div>
+          <div class="review-role">Bought Maruti Swift</div>
+        </div>
+        <div>
+          <div class="review-stars">★★★★★</div>
+          <div class="google-badge"><span class="g-dot"></span> Google Review</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="glow-line"></div>
+
+<!-- ═══════════ CONTACT ═══════════ -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="reveal">
+      <span class="section-tag">Get In Touch</span>
+      <h2 class="contact-title">Ready to Find<br><span style="color:var(--red)">Your Car?</span></h2>
+      <p class="contact-subtitle">Visit us or call/WhatsApp — we're always ready to help you drive home happy.</p>
+    </div>
+
+    <div class="contact-cards reveal">
+      <div class="contact-card">
+        <div class="contact-card-icon">📞</div>
+        <div class="contact-card-label">Call / WhatsApp</div>
+        <div class="contact-card-value">+91 70205 23338</div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-card-icon">📞</div>
+        <div class="contact-card-label">Alternate</div>
+        <div class="contact-card-value">+91 95277 87979</div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-card-icon">🕐</div>
+        <div class="contact-card-label">Open Hours</div>
+        <div class="contact-card-value">9 AM – 8 PM Daily</div>
+      </div>
+    </div>
+
+    <div class="address-box reveal">
+      <p><strong>📍 AutoMart Used Car Dealer</strong><br>
+      Pune Nagar Rd, Chandan Nagar, Wagholi,<br>
+      Pune, Maharashtra – 411014<br>
+      <strong>Plus Code:</strong> HW6Q+G9 Pune, Maharashtra</p>
+    </div>
+
+    <div class="cta-btns reveal">
+      <a class="btn-primary" href="https://wa.me/917020523338?text=Namaste!%20AutoMart%20mein%20ek%20car%20dekhni%20thi.%20Help%20karo%20please!" target="_blank">💬 WhatsApp Now</a>
+      <a class="btn-secondary" href="https://maps.google.com/?q=AutoMart+Used+Car+Dealer+Wagholi+Pune" target="_blank">📍 Get Directions</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  <div class="footer-logo">AutoMart</div>
+  <div class="footer-copy">© 2025 AutoMart Pune · Sale · Purchase · Exchange · Wagholi, Pune</div>
+  <div style="color:var(--muted);font-size:0.85rem;">
+    <a href="https://wa.me/917020523338" style="color:var(--red);text-decoration:none;">WhatsApp Us ↗</a>
+  </div>
+</footer>
+
+<!-- ═══════════ SCRIPTS ═══════════ -->
+<script>
+// ─── SCROLL REVEAL ───
+const reveals = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('visible');
+  });
+}, { threshold: 0.1 });
+reveals.forEach(el => revealObserver.observe(el));
+
+// ─── COUNT UP ───
+const counters = document.querySelectorAll('.count-num');
+const countObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting && !e.target.dataset.counted) {
+      e.target.dataset.counted = true;
+      const target = +e.target.dataset.target;
+      const suffix = target === 85 ? '%' : target >= 1000 ? '+' : '+';
+      let current = 0;
+      const step = target / 60;
+      const timer = setInterval(() => {
+        current = Math.min(current + step, target);
+        e.target.textContent = Math.floor(current) + suffix;
+        if (current >= target) clearInterval(timer);
+      }, 25);
+    }
+  });
+}, { threshold: 0.5 });
+counters.forEach(el => countObserver.observe(el));
+
+// ─── 3D CARD MOUSE TILT ───
+const card3d = document.getElementById('card3d');
+if (card3d) {
+  card3d.parentElement.parentElement.addEventListener('mousemove', (e) => {
+    const rect = card3d.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const dx = (e.clientX - cx) / rect.width;
+    const dy = (e.clientY - cy) / rect.height;
+    card3d.style.transform = `rotateX(${-dy * 20}deg) rotateY(${dx * 30}deg)`;
+  });
+  card3d.parentElement.parentElement.addEventListener('mouseleave', () => {
+    card3d.style.transform = 'rotateX(10deg) rotateY(-20deg)';
+  });
+}
+
+// ─── CUBE MOUSE DRAG ───
+const cube = document.getElementById('cube');
+let isDragging = false, lastX = 0, rotY = 0;
+cube.addEventListener('mousedown', e => { isDragging = true; lastX = e.clientX; cube.style.animationPlayState = 'paused'; });
+document.addEventListener('mousemove', e => {
+  if (!isDragging) return;
+  const dx = e.clientX - lastX;
+  rotY += dx * 0.5;
+  cube.style.transform = `rotateX(-20deg) rotateY(${rotY}deg)`;
+  lastX = e.clientX;
+});
+document.addEventListener('mouseup', () => {
+  if (isDragging) {
+    isDragging = false;
+    setTimeout(() => { cube.style.transform = ''; cube.style.animationPlayState = 'running'; }, 2000);
+  }
+});
+
+// ─── PARALLAX SCROLL ───
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+  const grid = document.querySelector('.hero-grid');
+  if (grid) grid.style.transform = `translateY(${scrollY * 0.3}px)`;
+});
+</script>
+</body>
+</html>
